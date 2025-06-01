@@ -24,9 +24,12 @@ const ImagePreview = () => {
         <div className="flex items-center justify-center h-80 bg-gray-200">No Enhanced Image</div>
       </div>
       
-
+    
     </div>
   )
 }
 
 export default ImagePreview
+
+
+//24:24
