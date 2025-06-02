@@ -1,3 +1,5 @@
+import Loading from "./Loading";
+
 const ImagePreview = (props) => {
   return (
     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
@@ -19,9 +21,6 @@ const ImagePreview = (props) => {
             No Image Selected
           </div>
         )}
-
-
-       
       </div>
 
       {/* Enhanced Image */}
@@ -30,18 +29,21 @@ const ImagePreview = (props) => {
           Enhanced Image
         </h2>
 
-        {props.enhanced ? (
+        {props.enhanced && !props.loading && (
           <img
             src={props.enhanced}
             alt=""
             className="w-full h-full object-cover"
           />
+        )}
+
+        {props.loading ? (
+          <Loading />
         ) : (
           <div className="flex items-center justify-center h-80 bg-gray-200">
             No Enhanced Image
           </div>
         )}
-       
       </div>
     </div>
   );
