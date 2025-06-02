@@ -51,4 +51,3 @@ const ImagePreview = (props) => {
 
 export default ImagePreview;
 
-//24:24
