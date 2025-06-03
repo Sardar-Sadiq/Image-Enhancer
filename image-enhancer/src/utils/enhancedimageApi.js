@@ -15,7 +15,7 @@ export const enhancedimageApi = async (file) => {
     console.log("Enhanced image data:", enhancedImageData);
 
     
-    // return enhancedImageData;
+    return enhancedImageData;
   } catch (error) {
     console.log("Error enhancing image", error.message);
   }
@@ -64,7 +64,7 @@ const PollForEnhancedImage = async (taskId, retries=0) => {
   const result = await fetchEnhancedImage(taskId);
 
 
-  if(result.status === 4){
+  if(result.state === 4){
     console.log("Processing...");
 
     if(retries >= 20) {
@@ -73,9 +73,12 @@ const PollForEnhancedImage = async (taskId, retries=0) => {
 
     //wait for 2 seconds
     await new Promise((resolve) => setTimeout(resolve, 2000));
+
     return PollForEnhancedImage(taskId, retries + 1);
 
   }
+  console.log("Enhanced imag URL:", result);
+  return result;
 };
 
 
