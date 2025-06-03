@@ -45,6 +45,27 @@ const uploadImage = async (file) => {
   return data.data.task_id;
 };
 
+const PollForEnhancedImage = async (taskId, retries=0) => {
+  const result = await fetchEnhancedImage(taskId);
+
+
+  if(result.state === 4){
+    console.log("Processing...(${retries}/${MAXIMUM_RETRIES})");
+
+    if(retries >=  MAXIMUM_RETRIES) {
+        throw new Error("Max retries reached. Please try again later.");
+    }
+
+    //wait for 2 seconds
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    return PollForEnhancedImage(taskId, retries + 1);
+
+  }
+  console.log("Enhanced imag URL:", result);
+  return result;
+};
+
 const fetchEnhancedImage = async (taskId) => {
   const { data } = await axios.get(
     `${BASE_URL}/api/tasks/visual/scale/${taskId}`,
@@ -60,29 +81,6 @@ const fetchEnhancedImage = async (taskId) => {
   return data.data;
   //"/api/tasks/visual/scale/{task_id}" get API
 };
-
-
-const PollForEnhancedImage = async (taskId, retries=0) => {
-  const result = await fetchEnhancedImage(taskId);
-
-
-  if(result.state === 4){
-    console.log("Processing...");
-
-    if(retries >= 20) {
-        throw new Error("Max retries reached. Please try again later.");
-    }
-
-    //wait for 2 seconds
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    return PollForEnhancedImage(taskId, retries + 1);
-
-  }
-  console.log("Enhanced imag URL:", result);
-  return result;
-};
-
 
 
 
