@@ -1,7 +1,7 @@
 import ImageUpload from "./ImageUpload";
 import ImagePreview from "./ImagePreview";
 import { useState } from "react";
-import {enhancedimageApi} from "../utils/enhancedimageApi";
+import { enhancedimageApi } from "../utils/enhancedimageApi";
 
 const Home = () => {
   const [uploadImage, setUploadImage] = useState(null);
@@ -9,39 +9,33 @@ const Home = () => {
   const [loading, setloading] = useState(false);
 
   const UploadImageHandler = async (file) => {
-    
-    
     setUploadImage(URL.createObjectURL(file));
     setloading(true);
-    
-    try{
+
+    try {
       const enhancedURL = await enhancedimageApi(file);
       setEnhancedImage(enhancedURL);
       setloading(false);
       //code which may produce error
-    } catch(error){
+    } catch (error) {
       console.log(error);
       alert("Something went wrong. Please try again later");
       //code to handle error and show message
     }
-    
   };
-
 
   return (
     <>
-      <ImageUpload  UploadImageHandler={UploadImageHandler} />
+      <ImageUpload UploadImageHandler={UploadImageHandler} />
       <ImagePreview
         loading={loading}
         uploaded={uploadImage}
-        enhanced={enhancedImage.image}
+        enhanced={enhancedImage?.image}
       />
     </>
   );
 };
 
 export default Home;
-
-
 
 //49:34

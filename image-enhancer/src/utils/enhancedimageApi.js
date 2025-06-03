@@ -2,6 +2,8 @@ const API_KEY = "wxm9emsli283mnven";
 import axios from "axios";
 const BASE_URL = "https://techhk.aoscdn.com";
 
+const MAXIMUM_RETRIES = 20;
+
 export const enhancedimageApi = async (file) => {
   //code to call api and get enhanced image URL
   try {
@@ -9,7 +11,7 @@ export const enhancedimageApi = async (file) => {
     console.log("Image uploaded successfully, Task ID:",taskId)
 
 
-    //polling
+    //polling and fetching
 
     const enhancedImageData = await PollForEnhancedImage(taskId);
     console.log("Enhanced image data:", enhancedImageData);
