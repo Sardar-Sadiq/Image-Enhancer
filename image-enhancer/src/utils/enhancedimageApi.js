@@ -1,4 +1,4 @@
-const API_KEY = "wxm9emsli283mnven";
+const API_KEY = import.meta.env.VITE_PICWISH_API_KEY;
 import axios from "axios";
 const BASE_URL = "https://techhk.aoscdn.com";
 
